@@ -1,0 +1,34 @@
+package com.generation.lojagames.repository;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.generation.lojagames.model.Produto;
+
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
+	
+	// Esse comando server para pegar todos os dados que contem o "nome" digitado.
+	public List<Produto> findAllByNomeContainingIgnoreCase(String nome);
+	
+	
+	/* Buscar todos os produtos cujo o preço seja maior do que um valor digitado
+	   ordenado pelo preço em ordem crescente.
+	   
+	   MySQL: SELECT * FROM tb_produto WHERE preco > preco ORDER BY preco;
+	   
+	*/
+	public List<Produto> findByPrecoGreaterThanOrderByPreco(BigDecimal preco);
+	
+	/*
+	 * Buscar todos os produtos cujo o preço seja menor do que um valor digitado
+	 * ordenado pelo preço em ordem descrecente
+	 * 
+	 * MySQL: SELECT * FROM tb_produtos WHERE preco < preco ORDER BY preco DESC;
+	 * 
+	 */
+	public List<Produto> findByPrecoLessThanOrderByPrecoDesc(BigDecimal preco);
+	
+
+}

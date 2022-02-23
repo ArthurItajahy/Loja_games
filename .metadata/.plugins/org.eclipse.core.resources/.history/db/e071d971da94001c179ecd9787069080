@@ -1,0 +1,116 @@
+package com.generation.lojagames.model;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name="tb_produto")
+public class Produto {
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id; /* CRIANDO O ID E FAZENDO INCREMENTO*/
+	
+	@NotBlank(message = "Nome é obrigatório! ")
+	private String nome;/* CRIANDO O NOME E COLOCANDO COMO NOT NULL PARA NÃO ACEITAR NADA VAZIO.*/
+	
+	@Size(max=500)
+	private String descricao;/* CRIAR DESCRICAO CONSOLE*/
+	
+	
+	private int quantidade;/* CRIAR QUANTOS PRODUTOS A PESSOA QUER COMPRAR*/	
+	@JsonFormat(shape = JsonFormat.Shape.STRING)
+	@NotBlank(message = "Preço é obrigatório!")
+	@Positive(message ="O preço deve ser maior do que zero!")
+	private BigDecimal preco;/*DEFININDO O PRECO DO PRODUTO */
+	
+	private String foto;/*PARA PEGAR A FOTO*/
+	
+	@ManyToOne
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;/* CHAVE ESTRANGEIRA PARA RELACIONAR COM A TABELA CATEGORIA.*/
+
+	/* GETTERS AND SETTERS.*/
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public LocalDateTime getData() {
+		return data;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+
+	
+}
