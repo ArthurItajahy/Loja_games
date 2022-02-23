@@ -1,7 +1,9 @@
 package com.generation.lojagames.controller;
 
 import java.math.BigDecimal;
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.generation.lojagames.model.Categoria;
 import com.generation.lojagames.model.Produto;
 import com.generation.lojagames.repository.CategoriaRepository;
 import com.generation.lojagames.repository.ProdutoRepository;
@@ -56,7 +60,6 @@ public class ProdutoController {
 			
 		return ResponseEntity.notFound().build();
 	}
-	
 	@PutMapping
 	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
 					

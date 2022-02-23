@@ -1,12 +1,18 @@
 package com.generation.lojagames.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -18,30 +24,37 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Produto {
 	
 	
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id; /* CRIANDO O ID E FAZENDO INCREMENTO*/
+	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	private Long id;
 	
-	@NotBlank(message = "Nome é obrigatório! ")
-	private String nome;/* CRIANDO O NOME E COLOCANDO COMO NOT NULL PARA NÃO ACEITAR NADA VAZIO.*/
+	@NotNull(message = "Nome é obrigatório!")                                       										
+	private String nome;
 	
 	@Size(max=500)
-	private String descricao;/* CRIAR DESCRICAO CONSOLE*/
+	private String descricao;
 	
+	@NotNull(message = "Console é obrigatório!")
+	private String console;
 	
-	private int quantidade;/* CRIAR QUANTOS PRODUTOS A PESSOA QUER COMPRAR*/	
+	private int quantidade;
+	
+	@Column(name = "data_lancamento")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataLancamento;
+	
 	@JsonFormat(shape = JsonFormat.Shape.STRING)
-	@NotBlank(message = "Preço é obrigatório!")
-	@Positive(message ="O preço deve ser maior do que zero!")
-	private Double preco;/*DEFININDO O PRECO DO PRODUTO */
+	@NotNull(message = "Preço é obrigatório!")
+	@Positive(message = "O preço deve ser maior do que zero!")
+	private BigDecimal preco;
 	
-	private String foto;/*PARA PEGAR A FOTO*/
-	
-	@ManyToOne
-	@JsonIgnoreProperties("produto")
-	private Categoria categoria;/* CHAVE ESTRANGEIRA PARA RELACIONAR COM A TABELA CATEGORIA.*/
+	private String foto;
 
-	/* GETTERS AND SETTERS.*/
+	@ManyToOne(fetch = FetchType.EAGER, optional = true)
+	@JoinColumn(name= "tema_id")
+	@JsonIgnoreProperties("produto")
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -67,6 +80,14 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
+	public String getConsole() {
+		return console;
+	}
+
+	public void setConsole(String console) {
+		this.console = console;
+	}
+
 	public int getQuantidade() {
 		return quantidade;
 	}
@@ -75,14 +96,19 @@ public class Produto {
 		this.quantidade = quantidade;
 	}
 
-	
+	public LocalDate getDataLancamento() {
+		return dataLancamento;
+	}
 
+	public void setDataLancamento(LocalDate dataLancamento) {
+		this.dataLancamento = dataLancamento;
+	}
 
-	public Double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(Double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 
@@ -102,4 +128,6 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
+
+	
 }

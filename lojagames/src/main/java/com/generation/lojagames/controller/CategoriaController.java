@@ -1,5 +1,6 @@
 package com.generation.lojagames.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.generation.lojagames.model.Categoria;
 import com.generation.lojagames.repository.CategoriaRepository;
@@ -50,7 +52,11 @@ public class CategoriaController {
 	
 	@PostMapping
 	public ResponseEntity<Categoria> postCategoria(@Valid @RequestBody Categoria categoria){
-		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
+		 Categoria savedCategoria = categoriaRepository.save(categoria);
+	        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+	            .buildAndExpand(savedCategoria.getId()).toUri();
+
+	        return ResponseEntity.created(location).body(savedCategoria);
 	}
 	@PutMapping
 	public ResponseEntity<Categoria> putCategori(@Valid @RequestBody Categoria categoria){
