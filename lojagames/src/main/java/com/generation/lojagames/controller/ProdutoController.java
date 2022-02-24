@@ -60,15 +60,12 @@ public class ProdutoController {
 			
 		return ResponseEntity.notFound().build();
 	}
+	
 	@PutMapping
 	public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto) {
-					
 		return produtoRepository.findById(produto.getId())
-				.map(resposta -> {
-					return ResponseEntity.ok().body(produtoRepository.save(produto));
-				})
+				.map(resposta -> ResponseEntity.ok().body(produtoRepository.save(produto)))
 				.orElse(ResponseEntity.notFound().build());
-
 	}
 
 	@DeleteMapping("/{id}")

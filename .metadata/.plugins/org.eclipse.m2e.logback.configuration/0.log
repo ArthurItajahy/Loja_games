@@ -238,3 +238,5 @@ java.net.URISyntaxException: Illegal character in path at index 16: file:/C:/Pro
 2022-02-23 17:21:31,130 [Worker-51: Launching lojagames - LojagamesApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 1 resource
 2022-02-23 17:21:31,139 [Worker-51: Launching lojagames - LojagamesApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Copying 0 resource
 2022-02-23 17:21:31,141 [Worker-51: Launching lojagames - LojagamesApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered resources.
+2022-02-23 17:21:31,141 [Worker-51: Launching lojagames - LojagamesApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - Using 'UTF-8' encoding to copy filtered properties files.
+2022-02-23 17:21:31,142 [Worker-51: Launching lojagames - LojagamesApplication] INFO  o.e.m.c.i.embedder.EclipseLogger - skip non existing resourceDirectory C:\Users\user\Desktop\Javaverse\Jav_Project\Loja_Games\lojagames\src\test\resources
