@@ -1,6 +1,8 @@
 package com.generation.lojagames.service;
 
 import java.nio.charset.Charset;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 import org.apache.commons.codec.binary.Base64;
@@ -24,11 +26,18 @@ public class UsuarioService {
 
 		if (usuarioRepository.findByUsuario(usuario.getUsuario()).isPresent())
 			return Optional.empty();
+		if(calcularIdade(usuario.getDataNascimento()) < 18)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Usuario menor que 18 anos", null);
 
 		usuario.setSenha(criptografarSenha(usuario.getSenha()));
 
 		return Optional.of(usuarioRepository.save(usuario));
 
+	}
+
+	private int calcularIdade(LocalDate dataNascimento) {
+		
+		return Period.between(dataNascimento, LocalDate.now()).getYears();
 	}
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
